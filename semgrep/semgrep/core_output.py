@@ -235,7 +235,6 @@ class CoreOutput:
         rule_table = {rule.id: rule for rule in rules}
 
         match_results = core.MatchResults.from_json(raw_json)
-        print(raw_json)
 
         parsed_errors = [CoreError.make(error) for error in match_results.errors]
         parsed_matches = [
@@ -273,9 +272,14 @@ class CoreOutput:
                 for metavariable, metavariable_data in match.metavars.items():
                     # Offsets are start inclusive and end exclusive
 
-                    # Emma TODO: use propagated_value if present
-                    start_offset = metavariable_data.start.offset
-                    end_offset = metavariable_data.end.offset
+                    # Use propagated value
+                    if metavariable_data.propagated_value:
+                        m = metavariable_data.propagated_value
+                        start_offset = m.svalue_start.offset
+                        end_offset = m.svalue_end.offset
+                    else:
+                        start_offset = metavariable_data.start.offset
+                        end_offset = metavariable_data.end.offset
                     length = end_offset - start_offset
 
                     fd.seek(start_offset)
