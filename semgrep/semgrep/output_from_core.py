@@ -474,6 +474,86 @@ class Time:
         return json.dumps(self.to_json(), **kw)
 
 
+@dataclass(frozen=True, order=True)
+class Position:
+    """Original type: position = { ... }"""
+
+    line: int
+    col: int
+    offset: int
+
+    @classmethod
+    def from_json(cls, x: Any) -> "Position":
+        if isinstance(x, dict):
+            return cls(
+                line=_atd_read_int(x["line"])
+                if "line" in x
+                else _atd_missing_json_field("Position", "line"),
+                col=_atd_read_int(x["col"])
+                if "col" in x
+                else _atd_missing_json_field("Position", "col"),
+                offset=_atd_read_int(x["offset"])
+                if "offset" in x
+                else _atd_missing_json_field("Position", "offset"),
+            )
+        else:
+            _atd_bad_json("Position", x)
+
+    def to_json(self) -> Any:
+        res: Dict[str, Any] = {}
+        res["line"] = _atd_write_int(self.line)
+        res["col"] = _atd_write_int(self.col)
+        res["offset"] = _atd_write_int(self.offset)
+        return res
+
+    @classmethod
+    def from_json_string(cls, x: str) -> "Position":
+        return cls.from_json(json.loads(x))
+
+    def to_json_string(self, **kw: Any) -> str:
+        return json.dumps(self.to_json(), **kw)
+
+
+@dataclass(frozen=True)
+class SvalueValue:
+    """Original type: svalue_value = { ... }"""
+
+    svalue_start: Position
+    svalue_end: Position
+    svalue_abstract_content: str
+
+    @classmethod
+    def from_json(cls, x: Any) -> "SvalueValue":
+        if isinstance(x, dict):
+            return cls(
+                svalue_start=Position.from_json(x["svalue_start"])
+                if "svalue_start" in x
+                else _atd_missing_json_field("SvalueValue", "svalue_start"),
+                svalue_end=Position.from_json(x["svalue_end"])
+                if "svalue_end" in x
+                else _atd_missing_json_field("SvalueValue", "svalue_end"),
+                svalue_abstract_content=_atd_read_string(x["svalue_abstract_content"])
+                if "svalue_abstract_content" in x
+                else _atd_missing_json_field("SvalueValue", "svalue_abstract_content"),
+            )
+        else:
+            _atd_bad_json("SvalueValue", x)
+
+    def to_json(self) -> Any:
+        res: Dict[str, Any] = {}
+        res["svalue_start"] = (lambda x: x.to_json())(self.svalue_start)
+        res["svalue_end"] = (lambda x: x.to_json())(self.svalue_end)
+        res["svalue_abstract_content"] = _atd_write_string(self.svalue_abstract_content)
+        return res
+
+    @classmethod
+    def from_json_string(cls, x: str) -> "SvalueValue":
+        return cls.from_json(json.loads(x))
+
+    def to_json_string(self, **kw: Any) -> str:
+        return json.dumps(self.to_json(), **kw)
+
+
 @dataclass(frozen=True)
 class Stats:
     """Original type: stats = { ... }"""
@@ -678,7 +758,7 @@ class SkipReason:
         return json.dumps(self.to_json(), **kw)
 
 
-@dataclass
+@dataclass(frozen=True)
 class RuleId:
     """Original type: rule_id"""
 
@@ -737,46 +817,6 @@ class SkippedTarget:
 
     @classmethod
     def from_json_string(cls, x: str) -> "SkippedTarget":
-        return cls.from_json(json.loads(x))
-
-    def to_json_string(self, **kw: Any) -> str:
-        return json.dumps(self.to_json(), **kw)
-
-
-@dataclass(frozen=True, order=True)
-class Position:
-    """Original type: position = { ... }"""
-
-    line: int
-    col: int
-    offset: int
-
-    @classmethod
-    def from_json(cls, x: Any) -> "Position":
-        if isinstance(x, dict):
-            return cls(
-                line=_atd_read_int(x["line"])
-                if "line" in x
-                else _atd_missing_json_field("Position", "line"),
-                col=_atd_read_int(x["col"])
-                if "col" in x
-                else _atd_missing_json_field("Position", "col"),
-                offset=_atd_read_int(x["offset"])
-                if "offset" in x
-                else _atd_missing_json_field("Position", "offset"),
-            )
-        else:
-            _atd_bad_json("Position", x)
-
-    def to_json(self) -> Any:
-        res: Dict[str, Any] = {}
-        res["line"] = _atd_write_int(self.line)
-        res["col"] = _atd_write_int(self.col)
-        res["offset"] = _atd_write_int(self.offset)
-        return res
-
-    @classmethod
-    def from_json_string(cls, x: str) -> "Position":
         return cls.from_json(json.loads(x))
 
     def to_json_string(self, **kw: Any) -> str:
@@ -897,6 +937,7 @@ class MetavarValue:
     end: Position
     abstract_content: str
     unique_id: UniqueId
+    propagated_value: Optional[SvalueValue] = None
 
     @classmethod
     def from_json(cls, x: Any) -> "MetavarValue":
@@ -914,6 +955,9 @@ class MetavarValue:
                 unique_id=UniqueId.from_json(x["unique_id"])
                 if "unique_id" in x
                 else _atd_missing_json_field("MetavarValue", "unique_id"),
+                propagated_value=SvalueValue.from_json(x["propagated_value"])
+                if "propagated_value" in x
+                else None,
             )
         else:
             _atd_bad_json("MetavarValue", x)
@@ -924,6 +968,8 @@ class MetavarValue:
         res["end"] = (lambda x: x.to_json())(self.end)
         res["abstract_content"] = _atd_write_string(self.abstract_content)
         res["unique_id"] = (lambda x: x.to_json())(self.unique_id)
+        if self.propagated_value is not None:
+            res["propagated_value"] = (lambda x: x.to_json())(self.propagated_value)
         return res
 
     @classmethod
@@ -1021,31 +1067,32 @@ class Location:
 class Match:
     """Original type: match_ = { ... }"""
 
+    rule_id: RuleId
     location: Location
     extra: MatchExtra
-    rule_id: Optional[RuleId] = None
 
     @classmethod
     def from_json(cls, x: Any) -> "Match":
         if isinstance(x, dict):
             return cls(
+                rule_id=RuleId.from_json(x["rule_id"])
+                if "rule_id" in x
+                else _atd_missing_json_field("Match", "rule_id"),
                 location=Location.from_json(x["location"])
                 if "location" in x
                 else _atd_missing_json_field("Match", "location"),
                 extra=MatchExtra.from_json(x["extra"])
                 if "extra" in x
                 else _atd_missing_json_field("Match", "extra"),
-                rule_id=RuleId.from_json(x["rule_id"]) if "rule_id" in x else None,
             )
         else:
             _atd_bad_json("Match", x)
 
     def to_json(self) -> Any:
         res: Dict[str, Any] = {}
+        res["rule_id"] = (lambda x: x.to_json())(self.rule_id)
         res["location"] = (lambda x: x.to_json())(self.location)
         res["extra"] = (lambda x: x.to_json())(self.extra)
-        if self.rule_id is not None:
-            res["rule_id"] = (lambda x: x.to_json())(self.rule_id)
         return res
 
     @classmethod
