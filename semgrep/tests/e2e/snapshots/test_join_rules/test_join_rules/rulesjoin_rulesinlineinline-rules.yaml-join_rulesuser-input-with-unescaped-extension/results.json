@@ -18,25 +18,7 @@
         "lines": "        <li>person_name_full is <b>{{ person_name_full }}</b></li>",
         "message": "Detected a XSS vulnerability: '$VAR' is rendered\nunsafely in '$TEMPLATE'.\n",
         "metadata": {},
-        "metavars": {
-          "$VAR": {
-            "abstract_content": "person_name_full",
-            "end": {
-              "col": 55,
-              "line": 9,
-              "offset": 159
-            },
-            "start": {
-              "col": 39,
-              "line": 9,
-              "offset": 143
-            },
-            "unique_id": {
-              "md5sum": "<masked in tests>",
-              "type": "AST"
-            }
-          }
-        },
+        "metavars": {},
         "severity": "ERROR"
       },
       "path": "targets/join_rules/user-input-with-unescaped-extension/launch.htm.j2",

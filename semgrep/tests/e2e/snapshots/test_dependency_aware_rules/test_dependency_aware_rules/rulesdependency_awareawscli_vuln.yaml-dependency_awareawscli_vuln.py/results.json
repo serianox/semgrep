@@ -15,29 +15,6 @@
         "offset": 537
       },
       "extra": {
-        "dependency_match_only": false,
-        "dependency_matches": [
-          {
-            "dependency_pattern": {
-              "namespace": "pypi",
-              "package_name": "awscli",
-              "semver_range": "== 1.11.82"
-            },
-            "found_dependency": {
-              "allowed_hashes": {
-                "sha256": [
-                  "149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1",
-                  "ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"
-                ]
-              },
-              "name": "awscli",
-              "namespace": "pypi",
-              "resolved_url": null,
-              "version": "1.11.82"
-            },
-            "lockfile": "Pipfile.lock"
-          }
-        ],
         "fingerprint": "c3281feb0f4821f2e7ae791684266776",
         "is_ignored": false,
         "lines": "            s3_client = boto3.client(\"s3\")",
@@ -61,29 +38,6 @@
         "offset": 670
       },
       "extra": {
-        "dependency_match_only": false,
-        "dependency_matches": [
-          {
-            "dependency_pattern": {
-              "namespace": "pypi",
-              "package_name": "awscli",
-              "semver_range": "== 1.11.82"
-            },
-            "found_dependency": {
-              "allowed_hashes": {
-                "sha256": [
-                  "149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1",
-                  "ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"
-                ]
-              },
-              "name": "awscli",
-              "namespace": "pypi",
-              "resolved_url": null,
-              "version": "1.11.82"
-            },
-            "lockfile": "Pipfile.lock"
-          }
-        ],
         "fingerprint": "ef682f6bc12cdbd85c49a606c32993a4",
         "is_ignored": false,
         "lines": "            s3_client = boto3.client(\"s3\", region_name=region)",
@@ -107,34 +61,12 @@
         "offset": 0
       },
       "extra": {
-        "dependency_match_only": true,
-        "dependency_matches": [
-          {
-            "dependency_pattern": {
-              "namespace": "pypi",
-              "package_name": "awscli",
-              "semver_range": "== 1.11.82"
-            },
-            "found_dependency": {
-              "allowed_hashes": {
-                "sha256": [
-                  "149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1",
-                  "ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"
-                ]
-              },
-              "name": "awscli",
-              "namespace": "pypi",
-              "resolved_url": null,
-              "version": "1.11.82"
-            },
-            "lockfile": "Pipfile.lock"
-          }
-        ],
         "fingerprint": "df8bb4ca6dcad1077ee95e84d9c27608",
         "is_ignored": false,
         "lines": "",
         "message": "this version of awscli is subject to a directory traversal vulnerability in the s3 module 1",
         "metadata": {},
+        "metavars": {},
         "severity": "WARNING"
       },
       "path": "targets/dependency_aware/Pipfile.lock",
@@ -152,29 +84,6 @@
         "offset": 537
       },
       "extra": {
-        "dependency_match_only": false,
-        "dependency_matches": [
-          {
-            "dependency_pattern": {
-              "namespace": "pypi",
-              "package_name": "awscli",
-              "semver_range": ">= 0.0.1"
-            },
-            "found_dependency": {
-              "allowed_hashes": {
-                "sha256": [
-                  "149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1",
-                  "ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"
-                ]
-              },
-              "name": "awscli",
-              "namespace": "pypi",
-              "resolved_url": null,
-              "version": "1.11.82"
-            },
-            "lockfile": "Pipfile.lock"
-          }
-        ],
         "fingerprint": "dedcd224bb4ca1f44d2d715aa5f76c4e",
         "is_ignored": false,
         "lines": "            s3_client = boto3.client(\"s3\")",
@@ -198,29 +107,6 @@
         "offset": 670
       },
       "extra": {
-        "dependency_match_only": false,
-        "dependency_matches": [
-          {
-            "dependency_pattern": {
-              "namespace": "pypi",
-              "package_name": "awscli",
-              "semver_range": ">= 0.0.1"
-            },
-            "found_dependency": {
-              "allowed_hashes": {
-                "sha256": [
-                  "149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1",
-                  "ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"
-                ]
-              },
-              "name": "awscli",
-              "namespace": "pypi",
-              "resolved_url": null,
-              "version": "1.11.82"
-            },
-            "lockfile": "Pipfile.lock"
-          }
-        ],
         "fingerprint": "1eb50fa7a4176e5d4b926f1909272008",
         "is_ignored": false,
         "lines": "            s3_client = boto3.client(\"s3\", region_name=region)",
@@ -244,29 +130,6 @@
         "offset": 537
       },
       "extra": {
-        "dependency_match_only": false,
-        "dependency_matches": [
-          {
-            "dependency_pattern": {
-              "namespace": "pypi",
-              "package_name": "awscli",
-              "semver_range": "<= 1.11.82"
-            },
-            "found_dependency": {
-              "allowed_hashes": {
-                "sha256": [
-                  "149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1",
-                  "ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"
-                ]
-              },
-              "name": "awscli",
-              "namespace": "pypi",
-              "resolved_url": null,
-              "version": "1.11.82"
-            },
-            "lockfile": "Pipfile.lock"
-          }
-        ],
         "fingerprint": "9e5f5095ba7cf122624d0dd92024baa0",
         "is_ignored": false,
         "lines": "            s3_client = boto3.client(\"s3\")",
@@ -290,29 +153,6 @@
         "offset": 670
       },
       "extra": {
-        "dependency_match_only": false,
-        "dependency_matches": [
-          {
-            "dependency_pattern": {
-              "namespace": "pypi",
-              "package_name": "awscli",
-              "semver_range": "<= 1.11.82"
-            },
-            "found_dependency": {
-              "allowed_hashes": {
-                "sha256": [
-                  "149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1",
-                  "ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"
-                ]
-              },
-              "name": "awscli",
-              "namespace": "pypi",
-              "resolved_url": null,
-              "version": "1.11.82"
-            },
-            "lockfile": "Pipfile.lock"
-          }
-        ],
         "fingerprint": "516830f4f7443db4f84e28fc557fb881",
         "is_ignored": false,
         "lines": "            s3_client = boto3.client(\"s3\", region_name=region)",
@@ -336,34 +176,12 @@
         "offset": 0
       },
       "extra": {
-        "dependency_match_only": true,
-        "dependency_matches": [
-          {
-            "dependency_pattern": {
-              "namespace": "pypi",
-              "package_name": "awscli",
-              "semver_range": "== 1.11.82"
-            },
-            "found_dependency": {
-              "allowed_hashes": {
-                "sha256": [
-                  "149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1",
-                  "ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"
-                ]
-              },
-              "name": "awscli",
-              "namespace": "pypi",
-              "resolved_url": null,
-              "version": "1.11.82"
-            },
-            "lockfile": "Pipfile.lock"
-          }
-        ],
         "fingerprint": "684309d311f194819a654774d5b29c57",
         "is_ignored": false,
         "lines": "",
         "message": "this version of awscli is subject to a directory traversal vulnerability in the s3 module 2",
         "metadata": {},
+        "metavars": {},
         "severity": "WARNING"
       },
       "path": "targets/dependency_aware/Pipfile.lock",

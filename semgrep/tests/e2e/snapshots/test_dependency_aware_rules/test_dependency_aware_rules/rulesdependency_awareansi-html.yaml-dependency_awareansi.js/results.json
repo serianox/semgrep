@@ -15,26 +15,6 @@
         "offset": 0
       },
       "extra": {
-        "dependency_match_only": true,
-        "dependency_matches": [
-          {
-            "dependency_pattern": {
-              "namespace": "npm",
-              "package_name": "ansi-html",
-              "semver_range": "< 0.0.8"
-            },
-            "found_dependency": {
-              "allowed_hashes": {},
-              "name": "ansi-html",
-              "namespace": "npm",
-              "resolved_url": [
-                "https://registry.yarnpkg.com/ansi-html/-/ansi-html-0.0.7.tgz"
-              ],
-              "version": "0.0.7"
-            },
-            "lockfile": "yarn.lock"
-          }
-        ],
         "fingerprint": "e87e6dc13255fff5bd134556c84b5a22",
         "is_ignored": false,
         "lines": "",
@@ -52,6 +32,7 @@
             "ts"
           ]
         },
+        "metavars": {},
         "severity": "ERROR"
       },
       "path": "targets/dependency_aware/yarn.lock",
