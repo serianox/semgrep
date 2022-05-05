@@ -2,7 +2,10 @@ import asyncio
 import collections
 import json
 import os
-import resource
+try:
+    import resource
+except ImportError:
+    resource = None
 import shlex
 import subprocess
 import sys
@@ -223,12 +226,17 @@ class StreamingSemgrepCore:
             stderr_lines.append(line)
 
     async def _stream_subprocess(self) -> int:
+        preexec_fn = None
+
+        if resource != None:
+            preexec_fn = setrlimits_preexec_fn
+
         process = await asyncio.create_subprocess_exec(
             *self._cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
             limit=1024 * 1024 * 1024,  # buffer limit to read in bytes
-            preexec_fn=setrlimits_preexec_fn,
+            preexec_fn=preexec_fn,
         )
 
         # Raise any exceptions from processing stdout/err
@@ -432,7 +440,7 @@ class CoreRunner:
         try:
             return cast(Dict[str, Any], json.loads(semgrep_output))
         except ValueError:
-            if returncode == -11:
+            if returncode == -11 and resource != None:
                 # Killed by signal 11 (segmentation fault), this could be a
                 # stack overflow that was not intercepted by the OCaml runtime.
                 soft_limit, _hard_limit = resource.getrlimit(resource.RLIMIT_STACK)
