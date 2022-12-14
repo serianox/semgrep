@@ -73,6 +73,10 @@ def setrlimits_preexec_fn() -> None:
     Note this is intended to run as a preexec_fn before semgrep-core in a subprocess
     so all code here runs in a child fork before os switches to semgrep-core binary
     """
+    if resource != None:
+        logger.warning("Python package 'resource' not supported on this platform")
+        return
+
     # Get current soft and hard stack limits
     old_soft_limit, hard_limit = resource.getrlimit(resource.RLIMIT_STACK)
     logger.info(f"Existing stack limits: Soft: {old_soft_limit}, Hard: {hard_limit}")
@@ -226,17 +230,12 @@ class StreamingSemgrepCore:
             stderr_lines.append(line)
 
     async def _stream_subprocess(self) -> int:
-        preexec_fn = None
-
-        if resource != None:
-            preexec_fn = setrlimits_preexec_fn
-
         process = await asyncio.create_subprocess_exec(
             *self._cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
             limit=1024 * 1024 * 1024,  # buffer limit to read in bytes
-            preexec_fn=preexec_fn,
+            preexec_fn=setrlimits_preexec_fn,
         )
 
         # Raise any exceptions from processing stdout/err
